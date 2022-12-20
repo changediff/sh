@@ -56,6 +56,7 @@ EOF
 
 
 # start
+systemctl daemon-reload
 systemctl enable frpc
 systemctl start frpc
 systemctl status frpc
