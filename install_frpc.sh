@@ -35,7 +35,7 @@ token = ${token}
 type = tcp
 local_ip = 127.0.0.1
 local_port = 22
-remote_port = ${port}
+remote_port = ${remote_port}
 EOF
 
 # systemd
