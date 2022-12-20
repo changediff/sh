@@ -31,7 +31,7 @@ server_port = ${server_port}
 authentication_method = token
 token = ${token}
 
-[ssh_${port}]
+[ssh_${remote_port}]
 type = tcp
 local_ip = 127.0.0.1
 local_port = 22
