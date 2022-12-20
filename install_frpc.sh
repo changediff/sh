@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ -z $4 ]]; then
+if [ -z $4 ]; then
 	echo "sh install_frpc.sh <server_addr> <server_port> <remote_port> <token>"
 	exit 1
 fi
