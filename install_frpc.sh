@@ -53,3 +53,9 @@ ExecStart = /usr/local/bin/frpc -c /etc/frp/frpc.ini
 [Install]
 WantedBy = multi-user.target
 EOF
+
+
+# start
+systemctl enable frpc
+systemctl start frpc
+systemctl status frpc
