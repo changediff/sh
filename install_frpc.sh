@@ -19,7 +19,7 @@ else
 fi
 frp_url="https://github.com/fatedier/frp/releases/download/v${frp_version}/${frp_filename}.tar.gz"
 wget ${frp_url} -O /tmp/${frp_filename}.tar.gz
-tar zxvf /tmp/${frp_filename}.tar.gz
+tar zxvf /tmp/${frp_filename}.tar.gz -C /tmp/
 /bin/cp /tmp/${frp_filename}/frpc /usr/local/bin/frpc
 
 # frpc.ini
