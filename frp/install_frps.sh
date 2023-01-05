@@ -1,0 +1,52 @@
+#!/bin/bash
+
+if [ -z $2 ]; then
+	echo "sh install_frps.sh <bind_port> <token>"
+	exit 1
+fi
+
+bind_port=$1
+token=$2
+
+# frp
+frp_version=0.46.0
+if lscpu | grep x86_64; then
+	frp_filename=frp_${frp_version}_linux_amd64
+else
+	frp_filename=frp_${frp_version}_linux_arm64
+fi
+frp_url="https://github.com/fatedier/frp/releases/download/v${frp_version}/${frp_filename}.tar.gz"
+wget ${frp_url} -O /tmp/${frp_filename}.tar.gz
+tar zxvf /tmp/${frp_filename}.tar.gz -C /tmp/
+/bin/cp /tmp/${frp_filename}/frps /usr/local/bin/frps
+
+# frps.ini
+mkdir -p /etc/frp
+cat << EOF | tee /etc/frp/frps.ini
+[common]
+bind_port = ${bind_port}
+authentication_method = token
+token = ${token}
+EOF
+
+# systemd
+cat << EOF | tee /etc/systemd/system/frps.service
+[Unit]
+Description = frp server
+After = network.target syslog.target
+Wants = network.target
+
+[Service]
+Type = simple
+ExecStart = /usr/local/bin/frps -c /etc/frp/frps.ini
+
+[Install]
+WantedBy = multi-user.target
+EOF
+
+
+# start
+systemctl daemon-reload
+systemctl enable frps
+systemctl start frps
+systemctl status frps
