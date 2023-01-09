@@ -19,4 +19,6 @@ clipy \
 multipass \
 workflowy \
 bartender \
-balenaetcher
+balenaetcher \
+nutstore \
+flomo
