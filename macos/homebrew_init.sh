@@ -4,6 +4,7 @@
 
 # brew install apps
 brew install \
+telnet \
 htop \
 md5sha1sum \
 neofetch \
