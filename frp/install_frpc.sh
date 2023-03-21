@@ -10,7 +10,7 @@ server_port=$2
 remote_port=$3
 token=$4
 if [ -z $5 ]; then
-	frp_version=0.46.0
+	frp_version=0.46.1
 else
 	frp_version=$5
 fi
@@ -48,9 +48,12 @@ cat << EOF | tee /etc/systemd/system/frpc.service
 Description = frp client
 After = network.target syslog.target
 Wants = network.target
+StartLimitIntervalSec=0
 
 [Service]
 Type = simple
+Restart=always
+RestartSec=30
 ExecStartPre=/bin/bash -c 'until host example.com; do sleep 1; done'
 ExecStart = /usr/local/bin/frpc -c /etc/frp/frpc.ini
 
