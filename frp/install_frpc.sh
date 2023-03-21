@@ -12,7 +12,7 @@ token=$4
 if [ -z $5 ]; then
 	frp_version=0.46.0
 else
-	frp_version=$3
+	frp_version=$5
 fi
 
 # frp
