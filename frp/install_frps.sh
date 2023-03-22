@@ -31,6 +31,7 @@ cat << EOF | tee /etc/frp/frps.ini
 bind_port = ${bind_port}
 authentication_method = token
 token = ${token}
+log_file = /var/log/frps.log
 EOF
 
 # systemd

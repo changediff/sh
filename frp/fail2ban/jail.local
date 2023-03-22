@@ -1,0 +1,65 @@
+# FRP SSH防爆破
+[frps-ssh-ban]
+# 是否启用
+enabled = true
+# 检测时长
+findtime = 3m
+# 允许的最大重试次数，超过则封锁
+maxretry = 3
+# 封锁时长
+bantime = 120m
+# 过滤规则文件，即上面定义的规则文件
+filter = frps-ssh-ban
+# 存放日志的路径
+logpath = /var/log/frps.log
+# 匹配协议
+protocol = all
+# 端口号
+port = all
+# 拦截动作(基于iptables)
+chain = all
+action = iptables-allports[name=frps,protocol=tcp]
+
+# FRP RDP防爆破
+[frps-rdp-ban]
+# 是否启用
+enabled = true
+# 检测时长
+findtime = 3m
+# 允许的最大重试次数，超过则封锁
+maxretry = 6
+# 封锁时长
+bantime = 30m
+# 过滤规则文件，即上面定义的规则文件
+filter = frps-rdp-ban
+# 存放日志的路径
+logpath = /var/log/frps.log
+# 匹配协议
+protocol = all
+# 端口号
+port = all
+# 拦截动作(基于iptables)
+chain = all
+action = iptables-allports[name=frps,protocol=tcp]
+
+# FRP FTP防爆破
+[frps-ftp-ban]
+# 是否启用
+enabled = true
+# 检测时长
+findtime = 5m
+# 允许的最大重试次数，超过则封锁
+maxretry = 30
+# 封锁时长
+bantime = 60m
+# 过滤规则文件，即上面定义的规则文件
+filter = frps-ftp-ban
+# 存放日志的路径
+logpath = /var/log/frps.log
+# 匹配协议
+protocol = all
+# 端口号
+port = all
+# 拦截动作(基于iptables)
+chain = all
+action = iptables-allports[name=frps,protocol=tcp]

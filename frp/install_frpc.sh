@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z $4 ]; then
-	echo "sh install_frpc.sh <server_addr> <server_port> <remote_port> <token> <:frp_version>"
+	echo "sh install_frpc.sh <server_addr> <server_port> <remote_port> <token> <:protocol> <:frp_version>"
 	exit 1
 fi
 
@@ -9,11 +9,17 @@ server_addr=$1
 server_port=$2
 remote_port=$3
 token=$4
+
 if [ -z $5 ]; then
+	protocol=SSH
+else
+	protocol=$5
+fi
+
+if [ -z $6 ]; then
 	frp_version=0.46.1
 else
-	frp_version=$5
-fi
+	frp_version=$6
 
 # frp
 if lscpu | grep x86_64; then
