@@ -19,6 +19,7 @@ if lscpu | grep x86_64; then
 else
 	frp_filename=frp_${frp_version}_linux_arm64
 fi
+
 frp_url="https://github.com/fatedier/frp/releases/download/v${frp_version}/${frp_filename}.tar.gz"
 wget ${frp_url} -O /tmp/${frp_filename}.tar.gz
 tar zxvf /tmp/${frp_filename}.tar.gz -C /tmp/

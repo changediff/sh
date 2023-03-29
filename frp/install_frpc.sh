@@ -20,6 +20,7 @@ if [ -z $6 ]; then
 	frp_version=0.46.1
 else
 	frp_version=$6
+fi
 
 # frp
 if lscpu | grep x86_64; then
