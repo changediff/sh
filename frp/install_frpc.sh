@@ -1,25 +1,26 @@
 #!/bin/bash
 
 if [ -z $4 ]; then
-	echo "sh install_frpc.sh <server_addr> <server_port> <remote_port> <token> <:protocol> <:frp_version>"
+	echo "sh install_frpc.sh <server_addr 代理服务器地址> <server_port 代理服务器frps端口> <remote_port 代理服务器监听端口> <local_port 客户端本地端口> <token> <:protocol> <:frp_version>"
 	exit 1
 fi
 
 server_addr=$1
 server_port=$2
 remote_port=$3
-token=$4
-
-if [ -z $5 ]; then
-	protocol=SSH
-else
-	protocol=$5
-fi
+local_port=$4
+token=$5
 
 if [ -z $6 ]; then
+	protocol=SSH
+else
+	protocol=$6
+fi
+
+if [ -z $7 ]; then
 	frp_version=0.46.1
 else
-	frp_version=$6
+	frp_version=$7
 fi
 
 # frp
@@ -45,7 +46,7 @@ token = ${token}
 [$(hostname)_${protocol}_${remote_port}]
 type = tcp
 local_ip = 127.0.0.1
-local_port = 22
+local_port = ${local_port}
 remote_port = ${remote_port}
 EOF
 
