@@ -8,7 +8,7 @@ fi
 bind_port=$1
 token=$2
 if [ -z $3 ]; then
-	frp_version=0.46.0
+	frp_version=0.54.0
 else
 	frp_version=$3
 fi
@@ -27,12 +27,19 @@ tar zxvf /tmp/${frp_filename}.tar.gz -C /tmp/
 
 # frps.ini
 mkdir -p /etc/frp
-cat << EOF | tee /etc/frp/frps.ini
-[common]
-bind_port = ${bind_port}
-authentication_method = token
-token = ${token}
-log_file = /var/log/frps.log
+cat << EOF | tee /etc/frp/frps.toml
+bindAddr = "0.0.0.0"
+bindPort = ${bind_port}
+kcpBindPort = ${bind_port}
+transport.maxPoolCount = 100
+enablePrometheus = true
+log.to = "/var/log/frps.log"
+# trace, debug, info, warn, error
+log.level = "info"
+log.maxDays = 3
+log.disablePrintColor = false
+auth.method = "token"
+auth.token = ${token}
 EOF
 
 # systemd
@@ -53,6 +60,5 @@ EOF
 
 # start
 systemctl daemon-reload
-systemctl enable frps
-systemctl start frps
+systemctl enable frps --now
 systemctl status frps
