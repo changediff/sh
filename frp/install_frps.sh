@@ -40,6 +40,11 @@ log.maxDays = 3
 log.disablePrintColor = false
 auth.method = "token"
 auth.token = ${token}
+# ssh tunnel gateway
+sshTunnelGateway.bindPort = 7722
+sshTunnelGateway.privateKeyFile = "/home/frp-user/.ssh/id_rsa"
+sshTunnelGateway.autoGenPrivateKeyPath = ""
+sshTunnelGateway.authorizedKeysFile = "/home/frp-user/.ssh/authorized_keys"
 EOF
 
 # systemd
@@ -51,7 +56,7 @@ Wants = network.target
 
 [Service]
 Type = simple
-ExecStart = /usr/local/bin/frps -c /etc/frp/frps.ini
+ExecStart = /usr/local/bin/frps -c /etc/frp/frps.toml
 
 [Install]
 WantedBy = multi-user.target
